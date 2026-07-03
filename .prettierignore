@@ -1,0 +1,21 @@
+# Prettier formats Markdown, CSS, and YAML. Biome owns JS/TS/JSON.
+*.ts
+*.tsx
+*.js
+*.jsx
+*.mjs
+*.cjs
+*.json
+*.jsonc
+
+# Build output & deps
+node_modules
+.next
+.vercel
+pnpm-lock.yaml
+
+# Generated
+drizzle
+
+# Local agent-tooling state (git-excluded)
+.agents

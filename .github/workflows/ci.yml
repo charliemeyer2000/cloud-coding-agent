@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm build
+        env:
+          # Dummy values: `next build` evaluates route modules, which require
+          # these to be set, but nothing connects during the build.
+          DATABASE_URL: postgresql://ci:ci@ci.invalid/ci?sslmode=require
+          BETTER_AUTH_SECRET: ci-only-dummy-secret
